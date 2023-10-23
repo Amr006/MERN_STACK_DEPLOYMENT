@@ -1,0 +1,96 @@
+mv C:\Users\10\Desktop\Amr006_key.pem ~\.ssh\
+
+icacls "C:\Users\10\.ssh\Amr006_key.pem" /inheritance:r /grant:r "%USERNAME%:R"  == chmod 400 Amr006_key.pem for this (WARNING: UNPROTECTED PRIVATE KEY FILE!)
+
+sudo apt update && sudo apt upgrade -y 
+
+sudo apt-get install nginx -y
+
+sudo systemctl enable nginx
+
+sudo systemctl status nginx
+
+cd /etc/nginx/sites-available/
+
+sudo cp default myserver
+
+sudo vim myserver
+
+:%d to delete the whole vim 
+
+shift i to insert in the vim
+
+nginx config
+server {
+        listen 80;
+        listen [::]:80;
+        root /home/azureuser/apps/my-notes-app/client/build;
+        index index.html index.htm index.nginx-debian.html;
+        server_name 20.51.228.239;
+        location / {
+                    try_files $uri /index.html;
+                   }
+        location /api {
+            proxy_pass http://localhost:3000;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_cache_bypass $http_upgrade;
+           }
+}
+:wq to save 
+
+:qa to exit 
+
+sudo ln -s /etc/nginx/sites-available/myserver /etc/nginx/sites-enabled/    (like short cut in windows)
+
+sudo service nginx restart  do this command after any change in the config of the nginx
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash   to download nvm (to download the specific version of nodejs on ubunto)
+
+Close and reopen your terminal to start using nvm or run the following to use it now:
+
+exit
+
+connect again
+
+ssh -i C:\Users\10\.ssh\Amr006_key.pem azureuser@20.46.54.15
+
+nvm install 19.8.1  or the version of your nodejs server
+
+node -v
+
+stand in the ~ and install -> pm2  npm install pm2 --location=global
+
+to download mongodb server
+
+wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add
+
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+
+sudo systemctl start mongod
+
+sudo systemctl enable mongod.service
+
+sudo chown -R mongodb:mongodb /var/lib/mongodb
+
+sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
+
+sudo service mongod restart
+
+sudo systemctl status mongod
+
+create folder that has two folders server and the client and the client the build of the reactjs 
+
+scp -i C:\Users\10\.ssh\Amr006_key.pem -r .\BrainStorm006\ azureuser@20.174.9.91:/home/azureuser
+
+pm2 start server.js -i max
+
+pm2 startup
+
+take the command given and past it again 
+
+pm2 save
