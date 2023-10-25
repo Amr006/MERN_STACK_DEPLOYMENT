@@ -131,6 +131,3 @@ Feel free to reach out if you have any questions or need further assistance.
 
 **Author:** Amr006
 **Role:** Software Engineer | Backend Developer | Node.js
-
-
-```
