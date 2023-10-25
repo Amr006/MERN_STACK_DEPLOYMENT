@@ -94,3 +94,25 @@ pm2 startup
 take the command given and past it again 
 
 pm2 save
+
+to make user in the db 
+
+use database name (BrainStorm)
+
+db.createUser({user: "username" , pwd: "password" , roles: [{ role: "root" , db: "admin"}]})
+
+to get users 
+
+db.getUsers()
+
+to migrate database 
+
+connect to the cloud db (mongo atlas) by the mongodbCompass
+
+then exract the data of each collection in json format then scp it to the vm 
+
+mongoimport --db BrainStorm --collection tournaments --file tournaments.json --jsonArray --username <your_username> --password <your_password>
+
+username and password of the db
+
+Software Engineer | Backend Developer | Node.js
