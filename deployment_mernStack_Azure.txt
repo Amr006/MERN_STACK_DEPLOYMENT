@@ -49,6 +49,8 @@ sudo ln -s /etc/nginx/sites-available/myserver /etc/nginx/sites-enabled/    (lik
 
 sudo service nginx restart  do this command after any change in the config of the nginx
 
+install npm (apt install npm)
+
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash   to download nvm (to download the specific version of nodejs on ubunto)
 
 Close and reopen your terminal to start using nvm or run the following to use it now:
@@ -64,6 +66,9 @@ nvm install 19.8.1  or the version of your nodejs server
 node -v
 
 stand in the ~ and install -> pm2  npm install pm2 --location=global
+or
+sudo npm install -g pm2
+
 
 to download mongodb server
 
@@ -86,6 +91,9 @@ sudo systemctl status mongod
 create folder that has two folders server and the client and the client the build of the reactjs 
 
 scp -i C:\Users\10\.ssh\Amr006_key.pem -r .\BrainStorm006\ azureuser@20.174.9.91:/home/azureuser
+or
+scp -i C:\Users\10\.ssh\id_rsa -r .\Deploy\ root@195.35.25.203:/home/Expo
+
 
 pm2 start server.js -i max
 
@@ -114,5 +122,12 @@ then exract the data of each collection in json format then scp it to the vm
 mongoimport --db BrainStorm --collection tournaments --file tournaments.json --jsonArray --username <your_username> --password <your_password>
 
 username and password of the db
+
+for SSL :
+
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d expogalaxy.com -d www.expogalaxy.com
+
+
 
 Software Engineer | Backend Developer | Node.js

@@ -1,0 +1,11 @@
+{
+  "name": "brainstorm006",
+  "version": "1.0.0",
+  "description": "This guide will walk you through the steps to deploy a MERN (MongoDB, Express.js, React, Node.js) stack project on a virtual machine (VM) in Microsoft Azure.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
