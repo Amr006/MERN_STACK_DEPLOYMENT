@@ -109,6 +109,8 @@ use database name (BrainStorm)
 
 db.createUser({user: "username" , pwd: "password" , roles: [{ role: "root" , db: "admin"}]})
 
+db.myCollection.createIndex({ "fieldName": "text" })
+
 to get users 
 
 db.getUsers()
