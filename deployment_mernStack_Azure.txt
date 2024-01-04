@@ -111,6 +111,9 @@ db.createUser({user: "username" , pwd: "password" , roles: [{ role: "root" , db:
 
 db.myCollection.createIndex({ "fieldName": "text" })
 
+db.myCollection.getIndexes()
+
+
 to get users 
 
 db.getUsers()
