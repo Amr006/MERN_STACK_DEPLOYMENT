@@ -153,4 +153,17 @@ sudo certbot --nginx -d expogalaxy.com -d www.expogalaxy.com
 
 
 
-Software Engineer | Backend Developer | Node.js
+general tips :
+if there is  500 ubunto error and all confi are right go and see the logs of the nginx
+tail -f /var/log/nginx/error.log
+
+if the problem is from permission denied its eazy use this 
+https://stackoverflow.com/questions/25774999/nginx-stat-failed-13-permission-denied
+
+if you are using python script in the vps and module dont wanna install use pip3 not pip only 
+
+if want the latest python version 
+https://phoenixnap.com/kb/how-to-install-python-3-ubuntu
+
+
+
