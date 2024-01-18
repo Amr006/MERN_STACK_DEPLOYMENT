@@ -171,3 +171,7 @@ https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-
 https://ploi.io/documentation/server/how-to-install-puppeteer-on-ubuntu
 https://github.com/puppeteer/puppeteer/issues/5662#issuecomment-732076246
 
+const browser = await puppeteer.launch({
+      args: ['--no-sandbox'],
+    });
+
