@@ -190,7 +190,7 @@ username and password of the db
 for SSL :
 
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d expogalaxy.com -d www.expogalaxy.com
+sudo certbot --nginx -d expogalaxy.com -d www.expogalaxy.coma   
 
 
 
@@ -216,3 +216,32 @@ const browser = await puppeteer.launch({
       args: ['--no-sandbox'],
     });
 
+if you want to use github in vps 
+
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+
+Copy the SSH public key to the clipboard:
+
+sudo apt install xclip   # Install xclip if not already installed
+xclip -sel clip < ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa.pub
+
+Go to your GitHub account settings.
+
+Navigate to "SSH and GPG keys" > "New SSH key."
+
+Paste the copied SSH key into the "Key" field and give it a meaningful title.
+
+Click "Add SSH key."
+
+ssh -T git@github.com
+
+git clone git@github.com:username/repository.git
+example :
+git clone git@github.com:ams770/dagagino.git
+
+how to add nextjs to pm2 
+pm2 start npm --name "your-app-name" -- start
