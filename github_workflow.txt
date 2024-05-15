@@ -1,0 +1,100 @@
+ref for why pm2 command not found problem
+https://github.com/appleboy/ssh-action/issues/154
+
+name: Deploy
+
+on:
+  push:
+    branches: [ production ]  # Replace 'master' with your production branch name
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache backend modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-backend-${{ hashFiles('**/backend/gces/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-backend-
+      
+      - name: Install backend dependencies
+        run: cd backend/gces && npm install 
+
+      - name: Build backend
+        run: cd backend/gces && npm run build 
+
+      - name: Install frontend dependencies
+        run: cd frontend && npm install 
+
+      - name: Cache frontend build
+        uses: actions/cache@v2
+        with:
+          path: frontend/build
+          key: ${{ runner.os }}-frontend-${{ hashFiles('**/frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-frontend-
+      - name: Build frontend (if not cached)
+        run: cd frontend && npm run build || echo "Frontend build not cached, building now."
+
+      - name: Install dashboard dependencies
+        run: cd dashboard && npm install 
+
+      - name: Cache dashboard build
+        uses: actions/cache@v2
+        with:
+          path: dashboard/build
+          key: ${{ runner.os }}-dashboard-${{ hashFiles('**/dashboard/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-dashboard-
+            
+      - name: Build dashboard (if not cached)
+        run: cd dashboard && npm run build || echo "dashboard build not cached, building now."
+
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        with:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSHKEY }}
+          source: "."
+          target: "/home/deploy"
+          
+      # # - uses: actions/checkout@v3
+            
+      # # - name: Deploy app
+      # #   uses: victorargento/pm2-deployment@main
+      # #   with:
+      # #     remote-path: "/deployment/api"
+      # #     host: ${{ secrets.HOST }}
+      # #     username: ${{ secrets.USERNAME }}
+      # #     port: ${{ secrets.PORT }}
+      # #     password: ${{ secrets.PASS }}
+      # #     pm2-id: "api"
+
+      - name: Restart PM2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSHKEY }}
+          script: |
+            PATH=$PATH:/root/.nvm/versions/node/v19.8.1/bin
+            cd /home/deploy && pwd && pm2 start pm2.config.js || echo "PM2 restart failed. Check logs for details."
+      

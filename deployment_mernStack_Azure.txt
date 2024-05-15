@@ -45,6 +45,79 @@ server {
            }
 }
 
+
+server {
+        listen 80;
+        listen [::]:80;
+        root /home/Convivial/Deploy/client/build;
+        index index.html index.htm index.nginx-debian.html;
+        server_name www.odoo.expogalaxy.com;
+        location / {
+                    try_files $uri /index.html;
+                   }
+        location /api {
+            proxy_pass http://localhost:8069;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_cache_bypass $http_upgrade;
+           }
+}
+server {
+        root /home/Expo/Deploy/main/build;
+        index index.html index.htm index.nginx-debian.html;
+        server_name expogalaxy.com www.expogalaxy.com 195.35.25.203;
+        location / {
+                try_files $uri /index.html;
+        }         location /api {
+                proxy_pass http://localhost:3000;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_cache_bypass $http_upgrade;
+        }
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/expogalaxy.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/expogalaxy.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+
+}
+server {
+        root /home/Expo/Deploy/dashboard/build;
+        index index.html index.htm index.nginx-debian.html;
+        server_name dashboard.expogalaxy.com www.dashboard.expogalaxy.com;
+        location / {
+                try_files $uri /index.html;
+        }         location /api {
+                proxy_pass http://localhost:3000;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_cache_bypass $http_upgrade;
+        }
+
+    listen [::]:443 ssl; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/www.dashboard.expogalaxy.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/www.dashboard.expogalaxy.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
 server {                                                                                       
         listen 80;                                                                             
         listen [::]:80;                                                                        
@@ -83,7 +156,29 @@ server {
             set_real_ip_from 131.0.72.0/22;                                                    
         real_ip_header CF-Connecting-IP;                                                       
         real_ip_recursive on;                                                                  
-}                                                                                              
+}     
+
+use those if you want to not block http connections in nginx config :
+proxy_set_header X-NginX-Proxy true;
+proxy_set_header X-Forwarded-Proto https;
+proxy_set_header X-Forwarded-Host $host;
+
+if you want to redirect to invoices
+
+server {
+    root /home/New/client/build;
+    index index.html index.htm index.nginx-debian.html;
+    server_name invoices.expotb.com;
+
+    location / {
+
+        rewrite ^/$ /invoices permanent;
+        try_files $uri /index.html;
+
+}
+
+    
+}
                                                                                                
 :wq to save 
 
@@ -146,6 +241,10 @@ sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
 sudo service mongod restart
 
 sudo systemctl status mongod
+
+mongodb for  Ubuntu 23.04
+https://blog.stackademic.com/mongodb-cluster-setup-on-ubuntu-23-04-x64-223193fcdb5e
+
 
 create folder that has two folders server and the client and the client the build of the reactjs 
 
@@ -245,3 +344,7 @@ git clone git@github.com:ams770/dagagino.git
 
 how to add nextjs to pm2 
 pm2 start npm --name "your-app-name" -- start
+
+git tips :
+# Change the remote URL for the current branch (main) to "origin"
+git branch --set-upstream-to=origin/main main
