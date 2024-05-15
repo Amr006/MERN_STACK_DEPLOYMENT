@@ -163,6 +163,10 @@ proxy_set_header X-NginX-Proxy true;
 proxy_set_header X-Forwarded-Proto https;
 proxy_set_header X-Forwarded-Host $host;
 
+if you want to increase the size of the request for uploading files : 
+Syntax:   client_max_body_size size;
+Default:  client_max_body_size 1m; // thats the default
+
 if you want to redirect to invoices
 
 server {
