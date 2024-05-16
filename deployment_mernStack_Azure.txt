@@ -314,10 +314,14 @@ and for puppeteer use this
 https://stackoverflow.com/questions/59979188/error-failed-to-launch-the-browser-process-puppeteer
 https://ploi.io/documentation/server/how-to-install-puppeteer-on-ubuntu
 https://github.com/puppeteer/puppeteer/issues/5662#issuecomment-732076246
-
+install any browser chrome, chromium just use which browser name 
+will give you the path add it to 
+example: 
 const browser = await puppeteer.launch({
-      args: ['--no-sandbox'],
-    });
+  args: ['--no-sandbox'],
+  executablePath: '/usr/bin/chromium-browser'
+})
+
 
 if you want to use github in vps 
 
