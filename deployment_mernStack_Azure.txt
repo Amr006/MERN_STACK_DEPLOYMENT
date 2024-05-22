@@ -257,13 +257,13 @@ or
 scp -i C:\Users\10\.ssh\id_rsa -r .\Deploy\ root@195.35.25.203:/home/Expo
 
 
-pm2 start server.js -i max
+pm2 start server.js --name ServerName -i max
 
 pm2 startup
 
 take the command given and past it again 
 
-pm2 save
+pm2 save // very very important bec when the vps is restarted or reboot the whole pm2 config will go down
 
 to make user in the db 
 
@@ -356,3 +356,19 @@ pm2 start npm --name "your-app-name" -- start
 git tips :
 # Change the remote URL for the current branch (main) to "origin"
 git branch --set-upstream-to=origin/main main
+
+
+troubleshooting Tips: 
+
+uptime // to know if the vps has been restarted or not 
+
+to see service running on that port:
+
+netstat -tuln | grep 3000
+netstat -tuln | grep 8069
+-t: Show TCP sockets.
+-u: Show UDP sockets.
+-l: Show only listening sockets.
+-n: Show numerical addresses instead of resolving hostnames.
+
+
