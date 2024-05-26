@@ -246,6 +246,14 @@ sudo service mongod restart
 
 sudo systemctl status mongod
 
+Run the following command to enable the mongod service to start automatically at boot:
+sudo systemctl enable mongod
+systemctl is-enabled mongod
+
+
+this command to reboot vps : 
+sudo reboot
+
 mongodb for  Ubuntu 23.04
 https://blog.stackademic.com/mongodb-cluster-setup-on-ubuntu-23-04-x64-223193fcdb5e
 
