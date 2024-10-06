@@ -365,6 +365,8 @@ git tips :
 # Change the remote URL for the current branch (main) to "origin"
 git branch --set-upstream-to=origin/main main
 
+aws ssh generation
+https://zellwk.com/blog/github-actions-deploy/
 
 troubleshooting Tips: 
 
