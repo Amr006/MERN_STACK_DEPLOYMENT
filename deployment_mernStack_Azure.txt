@@ -298,6 +298,9 @@ mongoimport --db BrainStorm --collection tournaments --file tournaments.json --j
 
 username and password of the db
 
+how to import data in windows 
+mongorestore --db Convivial Convivial\
+
 for SSL :
 
 sudo apt install certbot python3-certbot-nginx
