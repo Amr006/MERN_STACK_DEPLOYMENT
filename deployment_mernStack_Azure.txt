@@ -298,6 +298,9 @@ mongoimport --db BrainStorm --collection tournaments --file tournaments.json --j
 
 username and password of the db
 
+how to import data in windows 
+mongorestore --db Convivial Convivial\
+
 for SSL :
 
 sudo apt install certbot python3-certbot-nginx
@@ -365,6 +368,8 @@ git tips :
 # Change the remote URL for the current branch (main) to "origin"
 git branch --set-upstream-to=origin/main main
 
+aws ssh generation
+https://zellwk.com/blog/github-actions-deploy/
 
 troubleshooting Tips: 
 
