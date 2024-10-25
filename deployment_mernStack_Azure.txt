@@ -380,3 +380,8 @@ netstat -tuln | grep 8069
 -n: Show numerical addresses instead of resolving hostnames.
 
 
+to know storage of your linux instance 
+
+df -h
+
+
