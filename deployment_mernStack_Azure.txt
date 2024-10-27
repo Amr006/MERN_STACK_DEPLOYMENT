@@ -389,4 +389,7 @@ to know storage of your linux instance
 
 df -h
 
+if you want to copy text with /n without losing its formats 
+shift + insert
+
 
