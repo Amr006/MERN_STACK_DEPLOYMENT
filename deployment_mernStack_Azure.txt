@@ -396,3 +396,10 @@ to delete file content using vim
 
 ggVGd
 
+to dump database backup from postgres 
+example: 
+sudo apt install postgresql-client
+sudo apt install postgresql-client-common
+
+pg_dump -h cnnectapp.c5sui222qhgv.ca-central-1.rds.amazonaws.com -U postgres -d postgres -F c -b -v -f cnnect.backup
+that how to dump database form rds
