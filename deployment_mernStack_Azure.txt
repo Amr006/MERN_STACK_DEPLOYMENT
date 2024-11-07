@@ -403,3 +403,7 @@ sudo apt install postgresql-client-common
 
 pg_dump -h cnnectapp.c5sui222qhgv.ca-central-1.rds.amazonaws.com -U postgres -d postgres -F c -b -v -f cnnect.backup
 that how to dump database form rds
+
+to solve permission problem while connecting with ssh using .pem file in windows
+icacls "cnnect-keypair.pem" /inheritance:r
+icacls "cnnect-keypair.pem" /grant:r "%username%":"(F)"
