@@ -407,3 +407,6 @@ that how to dump database form rds
 to solve permission problem while connecting with ssh using .pem file in windows
 icacls "cnnect-keypair.pem" /inheritance:r
 icacls "cnnect-keypair.pem" /grant:r "%username%":"(F)"
+
+if there is a merge on a certain branch and you want to revert
+git revert -m 1 <merge-commit-hash>
